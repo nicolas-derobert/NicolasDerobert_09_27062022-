@@ -36,48 +36,48 @@ describe("Given I am connected as an employee", () => {
 			//to-do write expect expression
 			expect(windowIcon.classList.contains("active-icon")).toBe(true);
 		});
-		test("The bills were get", async () => {
-			Object.defineProperty(window, "localStorage", {
-				value: localStorageMock,
-			});
-			window.localStorage.setItem(
-				"user",
-				JSON.stringify({
-					type: "Employee",
-				})
-			);
-      const pathname = ROUTES_PATH['Bills'];
-			const rootDiv = document.createElement("div");
-			rootDiv.setAttribute("id", "root");
-			document.body.append(root);
-			router();
-			// window.onNavigate(ROUTES_PATH.Bills);
-      rootDiv.innerHTML = ROUTES({ pathname, loading: true })
-      const divIcon1 = document.getElementById('layout-icon1')
-      const divIcon2 = document.getElementById('layout-icon2')
-      divIcon1.classList.add('active-icon')
-      divIcon2.classList.remove('active-icon')
-      const bills = new Bills({ document, onNavigate, store, localStorage  })
-      bills.getBills().then(data => {
-        rootDiv.innerHTML = BillsUI({ data })
-        const divIcon1 = document.getElementById('layout-icon1')
-        const divIcon2 = document.getElementById('layout-icon2')
-        divIcon1.classList.add('active-icon')
-        divIcon2.classList.remove('active-icon')
-        new Bills({ document, onNavigate, store, localStorage })
-      }).catch(error => {
-        rootDiv.innerHTML = ROUTES({ pathname, error })
-      })
-      console.log(root)
-      await waitFor(() => screen.getByText('Hôtel') )
-      // expect(screen.getByTestId(`open-billUIUZtnPQvnbFnB0ozvJh`)).toBeTruthy()
-      expect(screen.getByText('Hôtel')).toBeTruthy()
-			// await waitFor(() => screen.getByTestId("icon-window"));
-			// const windowIcon = screen.getByTestId("icon-window");
-			// //to-do write expect expression
-			// expect(windowIcon.classList.contains("active-icon")).toBe(true);
+		// test("The bills were get", async () => {
+		// 	Object.defineProperty(window, "localStorage", {
+		// 		value: localStorageMock,
+		// 	});
+		// 	window.localStorage.setItem(
+		// 		"user",
+		// 		JSON.stringify({
+		// 			type: "Employee",
+		// 		})
+		// 	);
+    //   const pathname = ROUTES_PATH['Bills'];
+		// 	const rootDiv = document.createElement("div");
+		// 	rootDiv.setAttribute("id", "root");
+		// 	document.body.append(root);
+		// 	router();
+		// 	// window.onNavigate(ROUTES_PATH.Bills);
+    //   rootDiv.innerHTML = ROUTES({ pathname, loading: true })
+    //   const divIcon1 = document.getElementById('layout-icon1')
+    //   const divIcon2 = document.getElementById('layout-icon2')
+    //   divIcon1.classList.add('active-icon')
+    //   divIcon2.classList.remove('active-icon')
+    //   const bills = new Bills({ document, onNavigate, store, localStorage  })
+    //   bills.getBills().then(data => {
+    //     rootDiv.innerHTML = BillsUI({ data })
+    //     const divIcon1 = document.getElementById('layout-icon1')
+    //     const divIcon2 = document.getElementById('layout-icon2')
+    //     divIcon1.classList.add('active-icon')
+    //     divIcon2.classList.remove('active-icon')
+    //     new Bills({ document, onNavigate, store, localStorage })
+    //   }).catch(error => {
+    //     rootDiv.innerHTML = ROUTES({ pathname, error })
+    //   })
+    //   console.log(root)
+    //   await waitFor(() => screen.getByText('Hôtel') )
+    //   // expect(screen.getByTestId(`open-billUIUZtnPQvnbFnB0ozvJh`)).toBeTruthy()
+    //   expect(screen.getByText('Hôtel')).toBeTruthy()
+		// 	// await waitFor(() => screen.getByTestId("icon-window"));
+		// 	// const windowIcon = screen.getByTestId("icon-window");
+		// 	// //to-do write expect expression
+		// 	// expect(windowIcon.classList.contains("active-icon")).toBe(true);
 
-		});
+		// });
     test("The bills were get", async () => {
 		  // localStorage.setItem("user", JSON.stringify({ type: "Admin", email: "a@a" }));
    		localStorage.setItem("user", JSON.stringify({"type":"Employee","email":"employee@test.tld","password":"employee","status":"connected"}));
