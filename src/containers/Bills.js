@@ -10,17 +10,14 @@ export default class {
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
     if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
-    // Not covered :
     if (iconEye) iconEye.forEach(icon => {
       icon.addEventListener('click', () => this.handleClickIconEye(icon))
     })
     new Logout({ document, localStorage, onNavigate })
   }
-//Not coverded
   handleClickNewBill = () => {
     this.onNavigate(ROUTES_PATH['NewBill'])
   }
-//not covered
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
