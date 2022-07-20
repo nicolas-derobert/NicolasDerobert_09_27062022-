@@ -14,7 +14,7 @@ export const filteredBills = (data, status) => {
 				if (typeof jest !== "undefined") {
 					selectCondition = bill.status === status;
 				} else {
-				/* istanbul ignore next */
+					/* istanbul ignore next */
 					// in prod environment
 					const userEmail = JSON.parse(localStorage.getItem("user")).email;
 					selectCondition =
@@ -76,6 +76,10 @@ export default class {
 		this.document = document;
 		this.onNavigate = onNavigate;
 		this.store = store;
+		this.counter1 = undefined;
+		this.counter2 = undefined;
+		this.counter3 = undefined;
+
 		$("#arrow-icon1").click((e) => this.handleShowTickets(e, bills, 1));
 		$("#arrow-icon2").click((e) => this.handleShowTickets(e, bills, 2));
 		$("#arrow-icon3").click((e) => this.handleShowTickets(e, bills, 3));
@@ -98,22 +102,23 @@ export default class {
 		if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
 		if (this.id === undefined || this.id !== bill.id) this.id = bill.id;
 		if (this.counter % 2 === 0) {
-			bills.forEach((b) => {
-				$(`#open-bill${b.id}`).css({ background: "#0D5AE5" });
-			});
-			$(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
-			$(".dashboard-right-container div").html(DashboardFormUI(bill));
-			$(".vertical-navbar").css({ height: "150vh" });
-			this.counter++;
-		} else {
-			$(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
-
-			$(".dashboard-right-container div").html(`
-        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
-      `);
-			$(".vertical-navbar").css({ height: "120vh" });
-			this.counter++;
+		bills.forEach((b) => {
+			$(`#open-bill${b.id}`).css({ background: "#0D5AE5" });
+		});
+		$(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
+		$(".dashboard-right-container div").html(DashboardFormUI(bill));
+		$(".vertical-navbar").css({ height: "150vh" });
+		this.counter++;
 		}
+			else {
+				$(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
+
+				$(".dashboard-right-container div").html(`
+		    <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
+		  `);
+				$(".vertical-navbar").css({ height: "120vh" });
+				this.counter++;
+			}
 
 		$("#icon-eye-d").click(this.handleClickIconEye);
 		$("#btn-accept-bill").click((e) => this.handleAcceptSubmit(e, bill));
@@ -141,21 +146,72 @@ export default class {
 	};
 
 	handleShowTickets(e, bills, index) {
-		if (this.counter === undefined || this.index !== index) this.counter = 0;
-		if (this.index === undefined || this.index !== index) this.index = index;
-		if (this.counter % 2 === 0) {
-			$(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
-			$(`#status-bills-container${this.index}`).html(
-				cards(filteredBills(bills, getStatus(this.index)))
-			);
-
-			this.counter++;
-		} else {
-			$(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
-			$(`#status-bills-container${this.index}`).html("");
-			this.counter++;
+		// if (this.counter === undefined || this.index !== index) this.counter = 0;
+		// if (this.counter === undefined) this.counter = 0;
+		// if (index === 1) {
+		// 	if (this.counter1 === undefined || this.index !== index)
+		// 		this.counter1 = 0;
+		// 	if (this.index === undefined || this.index !== index) this.index = index;
+		// 	if (this.counter1 % 2 === 0) {
+		// 		$(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+		// 		$(`#status-bills-container${this.index}`).html(
+		// 			cards(filteredBills(bills, getStatus(this.index)))
+		// 		);
+		// 		this.counter1++;
+		// 	} else {
+		// 		$(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+		// 		$(`#status-bills-container${this.index}`).html("");
+		// 		this.counter1++;
+		// 	}
+		// }
+		if (index === 1) {
+			if (this.counter1 === undefined )
+				this.counter1 = 0;
+			if (this.index === undefined || this.index !== index) this.index = index;
+			if (this.counter1 % 2 === 0) {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+				$(`#status-bills-container${this.index}`).html(
+					cards(filteredBills(bills, getStatus(this.index)))
+				);
+				this.counter1++;
+			} else {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+				$(`#status-bills-container${this.index}`).html("");
+				this.counter1++;
+			}
 		}
-		$("#myimage").off("click");
+		if (index === 2) {
+			if (this.counter2 === undefined )
+				this.counter2 = 0;
+			if (this.index === undefined || this.index !== index) this.index = index;
+			if (this.counter2 % 2 === 0) {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+				$(`#status-bills-container${this.index}`).html(
+					cards(filteredBills(bills, getStatus(this.index)))
+				);
+				this.counter2++;
+			} else {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+				$(`#status-bills-container${this.index}`).html("");
+				this.counter2++;
+			}
+		}
+		if (index === 3) {
+			if (this.counter3 === undefined)
+				this.counter3 = 0;
+			if (this.index === undefined || this.index !== index) this.index = index;
+			if (this.counter3 % 2 === 0) {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+				$(`#status-bills-container${this.index}`).html(
+					cards(filteredBills(bills, getStatus(this.index)))
+				);
+				this.counter3++;
+			} else {
+				$(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+				$(`#status-bills-container${this.index}`).html("");
+				this.counter3++;
+			}
+		}
 		bills.forEach((bill) => {
 			$(`#open-bill${bill.id}`).off("click");
 		});
