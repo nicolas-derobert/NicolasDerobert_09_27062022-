@@ -3,15 +3,10 @@
  */
 import { fireEvent } from "@testing-library/dom";
 import { screen, waitFor } from "@testing-library/dom";
-import BillsUI from "../views/BillsUI.js";
 import { bills } from "../fixtures/bills.js";
-import { ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import { ROUTES } from "../constants/routes";
-import Bills, { getBills } from "../containers/Bills.js";
 import store from "../__mocks__/store";
-import router from "../app/Router.js";
-
 import NewBillUI from "../views/NewBillUI.js";
 import NewBill from "../containers/NewBill.js";
 
@@ -99,45 +94,42 @@ describe("Given I am connected as an employee and I am on NewBill Page", () => {
 	});
 });
 
-
-
 describe("Given I am connected as an employee and I am on NewBill Page", () => {
-  describe("When I click the submit button", () => {
-    beforeEach(() => {});
-    test("The click event is listened   ", () => {
-      const html = NewBillUI();
-      document.body.innerHTML = html;
-      Object.defineProperty(window, "localStorage", {
-        value: localStorageMock,
-      });
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify({
-          type: "Employee",
-          email: "employee@test.tld",
-          password: "employee",
-          status: "connected",
-        })
-      );
-      const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname });
-      };
-      const newBill = new NewBill({
-        document,
-        onNavigate,
-        store: null,
-        localStorage: window.localStorage,
-      });
-      const submitMethod = jest.spyOn(newBill, "handleSubmit");
-      const submitElement = screen.getByTestId("form-new-bill");
-      submitElement.addEventListener("submit", submitMethod);
-      fireEvent.submit(submitElement);
-      expect(submitMethod).toHaveBeenCalled();
-      jest.restoreAllMocks();
-    });
-
-    afterEach(() => {
-      document.body.innerHTML = "";
-    });
-  });
+	describe("When I click the submit button", () => {
+		beforeEach(() => {});
+		test("The click event is listened   ", () => {
+			const html = NewBillUI();
+			document.body.innerHTML = html;
+			Object.defineProperty(window, "localStorage", {
+				value: localStorageMock,
+			});
+			window.localStorage.setItem(
+				"user",
+				JSON.stringify({
+					type: "Employee",
+					email: "employee@test.tld",
+					password: "employee",
+					status: "connected",
+				})
+			);
+			const onNavigate = (pathname) => {
+				document.body.innerHTML = ROUTES({ pathname });
+			};
+			const newBill = new NewBill({
+				document,
+				onNavigate,
+				store: null,
+				localStorage: window.localStorage,
+			});
+			const submitMethod = jest.spyOn(newBill, "handleSubmit");
+			const submitElement = screen.getByTestId("form-new-bill");
+			submitElement.addEventListener("submit", submitMethod);
+			fireEvent.submit(submitElement);
+			expect(submitMethod).toHaveBeenCalled();
+			jest.restoreAllMocks();
+		});
+		afterEach(() => {
+			document.body.innerHTML = "";
+		});
+	});
 });
